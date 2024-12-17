@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slørede Opgaver Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        .task-container {
+            max-width: 800px;
+            margin: 2em auto;
+            padding: 1em;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .task {
+            position: relative;
+            margin-bottom: 1.5em;
+        }
+
+        .blurred {
+            filter: blur(10px);
+            pointer-events: none;
+        }
+
+        .unlock-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .unlocked {
+            filter: none;
+            pointer-events: auto;
+        }
+
+        .clip-counter {
+            text-align: center;
+            margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Slørede Opgaver Platform</h1>
+        <p>Brug dine klip for at låse opgaver op!</p>
+    </header>
+
+    <div class="task-container">
+        <div class="clip-counter">
+            <strong>Klip tilbage: <span id="clip-count">3</span></strong>
+        </div>
+
+        <div class="task">
+            <div class="task-content blurred" id="task1">
+                <h3>Opgave 1</h3>
+                <p>Dette er en låst opgave. Her vil detaljerne blive vist, når du bruger et klip.</p>
+            </div>
+            <button class="unlock-btn" onclick="unlockTask('task1', this)">Lås op</button>
+        </div>
+
+        <div class="task">
+            <div class="task-content blurred" id="task2">
+                <h3>Opgave 2</h3>
+                <p>Dette er endnu en låst opgave. Brug et klip for at se indholdet.</p>
+            </div>
+            <button class="unlock-btn" onclick="unlockTask('task2', this)">Lås op</button>
+        </div>
+
+        <div class="task">
+            <div class="task-content blurred" id="task3">
+                <h3>Opgave 3</h3>
+                <p>Her er en tredje opgave, som også kræver et klip for at blive synlig.</p>
+            </div>
+            <button class="unlock-btn" onclick="unlockTask('task3', this)">Lås op</button>
+        </div>
+    </div>
+
+    <script>
+        let clipCount = 3;
+
+        function unlockTask(taskId, button) {
+            if (clipCount > 0) {
+                const taskContent = document.getElementById(taskId);
+                taskContent.classList.remove('blurred');
+                taskContent.classList.add('unlocked');
+                button.style.display = 'none';
+
+                clipCount--;
+                document.getElementById('clip-count').textContent = clipCount;
+            } else {
+                alert('Du har ikke flere klip tilbage!');
+            }
+        }
+    </script>
+</body>
+</html>
